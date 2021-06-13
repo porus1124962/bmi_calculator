@@ -55,7 +55,9 @@ class _HomePageBackState extends State<HomePageBack> {
   int _weightNum= 64;
   late Timer _timer;
   double _bmiTotal = 0;
-  bool _btnEffect = false;
+  bool _btnEffectMale = false;
+  bool _btnEffectFemale = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -97,19 +99,23 @@ class _HomePageBackState extends State<HomePageBack> {
 
                             child: InkWell(
                               onTap: (){
-                                _btnEffect = true;
+                                setState(() {
+                                  _btnEffectMale = true;
+                                  _btnEffectFemale = false;
+                                });
+
                               },
                               child: Container(
                                 child: Column(
                                   children: [
                                     Icon(
                                      Icons.male_rounded,
-                                      color: _btnEffect?HexColor('#090b2b'):HexColor('#e0004f'),
+                                      color: _btnEffectMale?HexColor('#090b2b'):HexColor('#e0004f'),
                                       size: 100.0,
                                     ),
                                     Text('MALE',
                                       style: TextStyle(
-                                          color: HexColor("#00c8ff"),
+                                          color:_btnEffectMale?HexColor('#090b2b'):HexColor("#e0004f"),
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold
                                       ),
@@ -118,7 +124,7 @@ class _HomePageBackState extends State<HomePageBack> {
                                 ),
                                 margin: EdgeInsets.symmetric(vertical: 3,horizontal: 3),
                                 decoration: BoxDecoration(
-                                  color: _btnEffect?HexColor('#e0004f'):HexColor('#090b2b'),
+                                  color:_btnEffectMale?HexColor('#b50241'):HexColor('#090b2b'),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
@@ -127,6 +133,7 @@ class _HomePageBackState extends State<HomePageBack> {
                           //Male container end
                           SizedBox(width: 10),
                           //Female container start
+
                           Container(
                             height: 145,
                             width: 170,
@@ -144,27 +151,35 @@ class _HomePageBackState extends State<HomePageBack> {
                                   ),
                                 ]
                             ),
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  Icon(
-                                    Icons.female_rounded,
-                                    color: HexColor('#e0004f'),
-                                    size: 100.0,
-                                  ),
-                                  Text('FEMALE',
-                                    style: TextStyle(
-                                        color: HexColor("#00c8ff"),
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold
+                            child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _btnEffectMale = false;
+                                      _btnEffectFemale = true;
+                                    });
+                                  },
+                              child: Container(
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      Icons.female_rounded,
+                                      color: _btnEffectFemale?HexColor('#090b2b'):HexColor('#e0004f'),
+                                      size: 100.0,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              margin: EdgeInsets.symmetric(vertical: 3,horizontal: 3),
-                              decoration: BoxDecoration(
-                                color: HexColor('#090b2b'),
-                                borderRadius: BorderRadius.circular(8),
+                                    Text('FEMALE',
+                                      style: TextStyle(
+                                          color:_btnEffectFemale?HexColor('#090b2b'):HexColor("#e0004f"),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                margin: EdgeInsets.symmetric(vertical: 3,horizontal: 3),
+                                decoration: BoxDecoration(
+                                  color:_btnEffectFemale?HexColor('#b50241'):HexColor('#090b2b'),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
                             ),
                           ),
@@ -587,7 +602,7 @@ class _HomePageBackState extends State<HomePageBack> {
                       buttons: [
                         DialogButton(
                           child: Text(
-                            "COOL",
+                            "OK",
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
                           onPressed: () => Navigator.pop(context),
